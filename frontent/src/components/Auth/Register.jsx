@@ -1,7 +1,15 @@
 "use client";
 import React from "react";
 import { Grid, TextField, Button } from "@mui/material";
+import WestIcon from "@mui/icons-material/West";
+import { useRouter } from "next/navigation";
+
 const Register = () => {
+  const router = useRouter();
+  const goBack = () => {
+    router.back();
+  };
+
   return (
     <div>
       <div className="flex items-center px-2 lg:px-5 py-2">
@@ -43,10 +51,29 @@ const Register = () => {
           fullWidth
           margin="normal"
         />
-        <Button variant="contained" className="z-10" type="submit">
+        <Button
+          className="w-full py-4 bg-blue-700"
+          variant="contained"
+          type="submit"
+        >
           Submit
         </Button>
       </form>
+
+      <div className="flex flex-col w-full items-center justify-center space-y-2">
+        <p className="flex items-center mt-5 text-center">
+          If you have already account ?
+          <Button onClick={() => router.push("login")} className="ml-5">
+            Login
+          </Button>
+        </p>
+        <p className="flex items-center mt-5 text-center">
+          Register as driver
+          <Button onClick={() => router.push("/driver/register")} className="ml-5">
+            Register
+          </Button>
+        </p>
+      </div>
     </div>
   );
 };

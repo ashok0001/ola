@@ -47,6 +47,10 @@ const Login = () => {
           Submit
         </Button>
       </form>
+<div className="flex w-full justify-center">
+  <p className="flex items-center mt-5 text-center">Don't Have Account Register <Button onClick={()=>router.push("register")} className="ml-5">Register</Button></p>
+</div>
+      
     </div>
   );
 };
