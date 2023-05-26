@@ -12,10 +12,15 @@ import {
   Typography,
 } from "@mui/material";
 import AvialableCab from "./AvialableCab";
+import { useSelector } from "react-redux";
+import { store } from "@/Redux/Store";
 
 const HomeComponets = () => {
   const [pickupLocation, setPickupLocation] = useState("");
   const [destinationLocation, setDestinationLocation] = useState("");
+  const {auth}=useSelector(store=>store);
+
+  console.log("store ----- ",auth)
 
   const [location, setLocation] = useState({
     pickupLocation: "p",

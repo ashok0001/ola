@@ -10,15 +10,17 @@ import Typography from '@mui/material/Typography';
 import Button from '@mui/material/Button';
 import IconButton from '@mui/material/IconButton';
 import MenuIcon from '@mui/icons-material/Menu';
-import SideBar from '../Drawer/SideBar';
+// import SideBar from '../Drawer/SideBar';
 import { Drawer } from '@mui/material';
 import { drawerList } from '../HomeComponents/DrawerList';
+import { useRouter } from 'next/navigation';
 
 export default function Navbar() {
 
     const [sidebarOpen,setSideBarOpen]=React.useState(false);
     const handleSideBarOpen =()=>setSideBarOpen(!sidebarOpen);
     const handleSidebarClose=()=>setSideBarOpen(false);
+    const router=useRouter();
 
   return (
     <Box >
@@ -36,7 +38,7 @@ export default function Navbar() {
           <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
             Zosh Cab
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Button onClick={()=>router.push("login")} color="inherit">Login</Button>
         </Toolbar>
       </AppBar>
       <Drawer
