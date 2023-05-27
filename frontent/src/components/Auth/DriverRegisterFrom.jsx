@@ -1,70 +1,87 @@
-'use client'
+"use client";
 
-import React, { useState } from 'react';
-import { TextField, Button, Container, Grid } from '@mui/material';
-import { useRouter } from 'next/navigation';
+import React, { useEffect, useState } from "react";
+import { TextField, Button, Container, Grid } from "@mui/material";
+import { useRouter } from "next/navigation";
 import WestIcon from "@mui/icons-material/West";
+import { useDispatch, useSelector } from "react-redux";
+import { getDriver, getUser, registerDriver } from "@/Redux/Auth/Action";
 
 const DriverRegisterForm = () => {
-    const router=useRouter()
-
+  const router = useRouter();
+  const dispatch = useDispatch();
+  const jwt = localStorage.getItem("jwt");
+  const { auth } = useSelector((store) => store);
 
   const [formData, setFormData] = useState({
-    name: '',
-    email: '',
-    mobile: '',
-    password: '',
+    name: "",
+    email: "",
+    mobile: "",
+    password: "",
     latitude: 0,
     longitude: 0,
   });
 
-  const [licenseData,setLicenseData]=useState( {
-    licenseNumber: '',
-    licenseState: '',
-    licenseExpirationDate: ''
-  },)
+  const [licenseData, setLicenseData] = useState({
+    licenseNumber: "",
+    licenseState: "",
+    licenseExpirationDate: "",
+  });
 
-  const [vehicleData,setVehicleData]=useState({
-    make: '',
-    model: '',
+  const [vehicleData, setVehicleData] = useState({
+    make: "",
+    model: "",
     year: 0,
-    licensePlate: '',
-    color: '',
-    capacity: 0
-  })
+    licensePlate: "",
+    color: "",
+    capacity: 0,
+  });
 
-  const handleVehicleData=(event)=>{
+  const handleVehicleData = (event) => {
     const { name, value } = event.target;
-    setVehicleData((prev)=>({...prev,[name]:value}))
-  }
-const handleLicenceData=(event)=>{
+    setVehicleData((prev) => ({ ...prev, [name]: value }));
+  };
+  const handleLicenceData = (event) => {
     const { name, value } = event.target;
-    setLicenseData((prev)=>({...prev,[name]:value}));
-}
+    setLicenseData((prev) => ({ ...prev, [name]: value }));
+  };
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setFormData((prevState) => ({
       ...prevState,
-      [name]: value
+      [name]: value,
     }));
   };
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log({...formData,vehicle:vehicleData,license:licenseData});
+    console.log({ ...formData, vehicle: vehicleData, license: licenseData });
+    const driverData={ ...formData, vehicle: vehicleData, license: licenseData }
+    dispatch(registerDriver(driverData))
   };
 
-  const goBack=()=>{
-    router.back()
-}
+  const goBack = () => {
+    router.back();
+  };
+  useEffect(() => {
+    console.log("jwt --- ",jwt)
+    if (jwt) {
+      dispatch(getUser(jwt));
+    }
+  }, [jwt]);
 
+  useEffect(() => {
+    if (auth.user) {
+      router.push("/driver/dashbord")
+    }
+  }, [auth.user]);
   return (
-    <Container className='h-screen'>
-
-
-         <div className="flex items-center py-5">
+    <Container className="h-screen">
+      <div className="flex items-center py-5">
         <WestIcon onClick={goBack} className="cursor-pointer" />
-        <p className="text-center w-full font-semibold text-2xl ">Driver Registration</p>
+        <p className="text-center w-full font-semibold text-2xl ">
+          Driver Registration
+        </p>
       </div>
       <form onSubmit={handleSubmit}>
         <Grid container spacing={2}>
@@ -212,17 +229,19 @@ const handleLicenceData=(event)=>{
               fullWidth
             />
           </Grid>
-         
+
           <Grid item xs={12}>
-            <Button className='w-full my-3 bg-blue-600' type="submit" variant="contained" color="primary">
+            <Button
+              className="w-full my-3 bg-blue-600"
+              type="submit"
+              variant="contained"
+              color="primary"
+            >
               Register
             </Button>
           </Grid>
         </Grid>
       </form>
-
-
-     
     </Container>
   );
 };

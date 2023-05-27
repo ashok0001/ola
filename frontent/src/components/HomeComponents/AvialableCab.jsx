@@ -4,7 +4,7 @@ import React from "react";
 
 const AvialableCab = () => {
   return (
-    <div className="flex items-center border rounded-md py-2 px-5 cursor-pointer">
+    <div className="flex items-center border rounded-md py-2 px-5 cursor-pointer -z-10">
       <div>
         <img
           className="w-7"
@@ -15,8 +15,8 @@ const AvialableCab = () => {
       </div>
 
       <div className="pl-5 text-sm">
-        <p className="font-semibold">Prime SUV</p>
-        <p className="text-xs opacity-70 ">
+        <p className="font-semibold ">Prime SUV</p>
+        <p className="text-xs -z-10!important">
           SUVs With free wifi and top drivers
         </p>
       </div>

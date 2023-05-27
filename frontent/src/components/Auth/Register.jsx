@@ -1,14 +1,53 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Grid, TextField, Button } from "@mui/material";
 import WestIcon from "@mui/icons-material/West";
 import { useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser, registerUser } from "@/Redux/Auth/Action";
 
 const Register = () => {
   const router = useRouter();
+  const dispatch = useDispatch();
+  const jwt = localStorage.getItem("jwt");
+  const { auth } = useSelector((store) => store);
+
+  const [signupData, setSignupData] = useState({
+    fullName: "",
+    email: "",
+    password: "",
+    mobile: "+91",
+  });
+
+  console.log(" auth ----- ", auth);
+
   const goBack = () => {
     router.back();
   };
+
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setSignupData((preValue) => ({ ...preValue, [name]: value }));
+  };
+
+  const onSubmit = (event) => {
+    event.preventDefault();
+    dispatch(registerUser(signupData));
+    
+  };
+
+  useEffect(() => {
+    console.log("jwt --- ",jwt)
+    if (jwt) {
+      dispatch(getUser(jwt));
+    }
+  }, [jwt]);
+
+  useEffect(() => {
+    if (auth.user) {
+      router.push("/")
+    }
+  }, [auth.user]);
 
   return (
     <div>
@@ -23,12 +62,14 @@ const Register = () => {
           />
         </div>
       </div>
-      <form className="h-full p-5">
+      <form onSubmit={onSubmit} className="h-full p-5">
         <TextField
           label="User Name"
           variant="outlined"
           fullWidth
           margin="normal"
+          name="fullName"
+          onChange={handleChange}
         />
         <TextField
           label="Email"
@@ -36,6 +77,8 @@ const Register = () => {
           variant="outlined"
           fullWidth
           margin="normal"
+          name="email"
+          onChange={handleChange}
         />
         <TextField
           label="Password"
@@ -43,6 +86,8 @@ const Register = () => {
           variant="outlined"
           fullWidth
           margin="normal"
+          name="password"
+          onChange={handleChange}
         />
         <TextField
           label="Mobile Number"
@@ -50,6 +95,8 @@ const Register = () => {
           variant="outlined"
           fullWidth
           margin="normal"
+          name="mobile"
+          onChange={handleChange}
         />
         <Button
           className="w-full py-4 bg-blue-700"
@@ -69,7 +116,10 @@ const Register = () => {
         </p>
         <p className="flex items-center mt-5 text-center">
           Register as driver
-          <Button onClick={() => router.push("/driver/register")} className="ml-5">
+          <Button
+            onClick={() => router.push("/driver/register")}
+            className="ml-5"
+          >
             Register
           </Button>
         </p>

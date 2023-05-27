@@ -19,13 +19,27 @@ const registerRequest = () => ({ type: REGISTER_REQUEST });
 const registerSuccess = (user) => ({ type: REGISTER_SUCCESS, payload:user });
 const registerFailure = error => ({ type: REGISTER_FAILURE, payload: error });
 
-export const register = userData => async dispatch => {
+export const registerUser = userData => async dispatch => {
   dispatch(registerRequest());
   try {
-    const response=await axios.post(`${API_BASE_URL}/auth/signup`, userData);
+    const response=await axios.post(`${API_BASE_URL}/auth/user/signup`, userData);
     const user = response.data;
     if(user.jwt) localStorage.setItem("jwt",user.jwt)
     console.log("registerr :",user)
+    dispatch(registerSuccess(user));
+  } catch (error) {
+    dispatch(registerFailure(error.message));
+  }
+};
+
+// driver registration
+export const registerDriver = userData => async dispatch => {
+  dispatch(registerRequest());
+  try {
+    const response=await axios.post(`${API_BASE_URL}/auth/driver/signup`, userData);
+    const user = response.data;
+    if(user.jwt) localStorage.setItem("jwt",user.jwt)
+    console.log("register driver :",user)
     dispatch(registerSuccess(user));
   } catch (error) {
     dispatch(registerFailure(error.message));
@@ -40,7 +54,7 @@ const loginFailure = error => ({ type: LOGIN_FAILURE, payload: error });
 export const login = userData => async dispatch => {
   dispatch(loginRequest());
   try {
-    const response = await api.post(`/auth/signin`, userData);
+    const response = await axios.post(`${API_BASE_URL}/auth/signin`, userData);
     const user = response.data;
     if(user.jwt) localStorage.setItem("jwt",user.jwt)
     console.log("login ",user)
@@ -54,10 +68,32 @@ export const login = userData => async dispatch => {
 
 //  get user from token
 export const getUser = (token) => {
+  console.log("get user ",token)
   return async (dispatch) => {
     dispatch({ type: GET_USER_REQUEST });
     try {
-      const response = await axios.get(`${API_BASE_URL}/api/users/profile`,{
+      const response = await axios.get(`${API_BASE_URL}/profile`,{
+        headers:{
+          "Authorization":`Bearer ${token}`
+        }
+      });
+      const user = response.data;
+      dispatch({ type: GET_USER_SUCCESS, payload: user });
+      console.log("req User ",user)
+    } catch (error) {
+      const errorMessage = error.message;
+      dispatch({ type: GET_USER_FAILURE, payload: errorMessage });
+    }
+  };
+};
+
+//  get Driver from token
+export const getDriver = (token) => {
+  console.log("get driver ",token)
+  return async (dispatch) => {
+    dispatch({ type: GET_USER_REQUEST });
+    try {
+      const response = await axios.get(`${API_BASE_URL}/driver/profile`,{
         headers:{
           "Authorization":`Bearer ${token}`
         }

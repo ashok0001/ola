@@ -1,0 +1,11 @@
+// actionTypes.js
+
+export const REQUEST_RIDE = 'REQUEST_RIDE';
+export const REQUEST_RIDE_SUCCESS = 'REQUEST_RIDE_SUCCESS';
+export const REQUEST_RIDE_FAILURE = 'REQUEST_RIDE_FAILURE';
+
+
+// ActionTypes.js
+export const SEARCH_REQUEST = 'SEARCH_REQUEST';
+export const SEARCH_SUCCESS = 'SEARCH_SUCCESS';
+export const SEARCH_FAILURE = 'SEARCH_FAILURE';

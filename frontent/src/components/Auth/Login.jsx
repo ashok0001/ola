@@ -1,14 +1,50 @@
 "use client";
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { Grid, TextField, Button } from "@mui/material";
 import { useRouter } from "next/navigation";
 import WestIcon from "@mui/icons-material/West";
+import { useDispatch, useSelector } from "react-redux";
+import { getUser, login } from "@/Redux/Auth/Action";
 
 const Login = () => {
+  const [signinData,setSigninData]=useState({
+    email:"",
+    password:""
+  })
+  const dispatch=useDispatch();
   const router = useRouter();
   const goBack = () => {
     router.back();
   };
+  const jwt = localStorage.getItem("jwt");
+  const { auth } = useSelector((store) => store);
+  
+  const handleChange = (event) => {
+    const { name, value } = event.target;
+    setSigninData((preValue) => ({ ...preValue, [name]: value }));
+  };
+  
+  const handleSubmit=(event)=>{
+event.preventDefault();
+console.log("signin data - - - ",signinData)
+dispatch(login(signinData))
+  }
+
+  useEffect(() => {
+    console.log("jwt --- ",jwt)
+    if (jwt) {
+      dispatch(getUser(jwt));
+    }
+  }, [jwt]);
+
+  useEffect(() => {
+    if (auth.user) {
+      router.push("/")
+    }
+  }, [auth.user]);
+
+
+
   return (
     <div className="py-10">
       <div className="flex items-center px-2 lg:px-5 py-2">
@@ -23,13 +59,15 @@ const Login = () => {
         </div>
       </div>
 
-      <form className="z-50 h-full p-5">
+      <form onSubmit={handleSubmit} className="z-50 h-full p-5">
         <TextField
           label="Email"
           type="email"
           variant="outlined"
           fullWidth
           margin="normal"
+          name="email"
+          onChange={handleChange}
         />
         <TextField
           label="Password"
@@ -37,6 +75,8 @@ const Login = () => {
           variant="outlined"
           fullWidth
           margin="normal"
+          onChange={handleChange}
+          name="password"
         />
 
         <Button

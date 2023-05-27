@@ -1,6 +1,6 @@
 "use client";
 
-import React from 'react'
+import React, { useEffect } from 'react'
 import WestIcon from "@mui/icons-material/West";
 import RideCard from '../RidesCard/RideCard';
 import { Avatar, Button } from '@mui/material';
@@ -8,11 +8,27 @@ import AccountBalanceWalletIcon from '@mui/icons-material/AccountBalanceWallet';
 import ContactPhoneIcon from '@mui/icons-material/ContactPhone';
 import WifiIcon from '@mui/icons-material/Wifi';
 import { useRouter } from 'next/navigation';
+import { getUser, logout } from '@/Redux/Auth/Action';
+import { useDispatch, useSelector } from 'react-redux';
+import { deepOrange } from '@mui/material/colors';
 const Profile = () => {
   const router=useRouter()
-
+  const dispatch = useDispatch();
+  const { auth } = useSelector((store) => store);
+  const jwt = localStorage.getItem("jwt");
     const goBack=()=>{
         router.back()
+    }
+    useEffect(() => {
+      console.log("jwt --- ",jwt)
+      if (jwt) {
+        dispatch(getUser(jwt));
+      }
+    }, [jwt]);
+
+    const handleLogout=()=>{
+      dispatch(logout());
+      router.push("/")
     }
   return (
     <div className='px-2 lg:px-5'>
@@ -20,17 +36,14 @@ const Profile = () => {
         <WestIcon className='cursor-pointer' onClick={goBack}/>
       </div>
       <div className='flex flex-col items-center space-y-2'>
-      <Avatar
-            alt="Remy Sharp"
-            src="https://cdn.pixabay.com/photo/2017/03/27/13/28/man-2178721_640.jpg"
-          />
-          <p>Code With Zosh</p>
-          <p>+91-9023379725</p>
+      <Avatar sx={{ bgcolor: deepOrange[500] }}>{auth.user?.fullName? auth.user?.fullName[0]:auth.user.name[0]}</Avatar>
+          <p>{auth.user?.fullName}</p>
+          <p>{auth.user?.mobile}</p>
       </div>
       <div className='border rounded-sm mt-5'>
         <RideCard/>
         <div className='flex flex-col items-center p-3'>
-          <Button variant="text" >See all rides</Button>
+          <Button onClick={()=>router.push("/your-rides")} variant="text" >See all rides</Button>
         </div>
         
       </div>
@@ -51,7 +64,7 @@ const Profile = () => {
       </div>
 
       <div className='mt-5'>
-        <Button className="w-full bg-red-500 text-white" color='error' variant='contained'>Logout</Button>
+        <Button onClick={handleLogout} className="w-full bg-red-500 text-white" color='error' variant='contained'>Logout</Button>
       </div>
     </div>
   )
