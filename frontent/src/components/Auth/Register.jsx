@@ -44,7 +44,7 @@ const Register = () => {
   }, [jwt]);
 
   useEffect(() => {
-    if (auth.user) {
+    if (auth.user?.fullName ||auth.user?.name) {
       router.push("/")
     }
   }, [auth.user]);

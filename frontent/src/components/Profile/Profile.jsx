@@ -36,7 +36,7 @@ const Profile = () => {
         <WestIcon className='cursor-pointer' onClick={goBack}/>
       </div>
       <div className='flex flex-col items-center space-y-2'>
-      <Avatar sx={{ bgcolor: deepOrange[500] }}>{auth.user?.fullName? auth.user?.fullName[0]:auth.user.name[0]}</Avatar>
+      <Avatar sx={{ bgcolor: deepOrange[500] }}>{auth.user?.fullName? auth.user?.fullName[0]:auth.user?.name[0]}</Avatar>
           <p>{auth.user?.fullName}</p>
           <p>{auth.user?.mobile}</p>
       </div>

@@ -38,8 +38,11 @@ dispatch(login(signinData))
   }, [jwt]);
 
   useEffect(() => {
-    if (auth.user) {
-      router.push("/")
+    if (auth.user?.fullName ||auth.user?.name) {
+      if(auth.user.role==="DRIVER"){
+        router.push("/driver/dashbord")
+      }
+      else router.push("/")
     }
   }, [auth.user]);
 

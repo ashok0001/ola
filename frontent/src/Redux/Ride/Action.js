@@ -1,53 +1,59 @@
 // actions.js
 
-import axios from 'axios';
+import axios from "axios";
 import {
   REQUEST_RIDE,
   REQUEST_RIDE_SUCCESS,
   REQUEST_RIDE_FAILURE,
-  SEARCH_REQUEST,
-  SEARCH_SUCCESS,
-  SEARCH_FAILURE
-} from './ActionType';
-import { api } from '@/config/api';
+
+} from "./ActionType";
+import { api } from "@/config/api";
+import {
+  findRideByIdRequest,
+  findRideByIdSuccess,
+  searchFailure,
+  searchRequest,
+  searchSuccess,
+} from "./ActionCreator";
 
 export const requestRide = (reqData) => {
   return async (dispatch) => {
     dispatch({ type: REQUEST_RIDE });
 
     try {
-      const {data} = await api.post(`/rides/request`,reqData);
+      const { data } = await api.post(`/rides/request`, reqData.location);
 
-      console.log("data --- ", data)
+      console.log("data --- ", data);
 
       dispatch({
         type: REQUEST_RIDE_SUCCESS,
-        payload: data
+        payload: data,
       });
+      if (data.id) {
+        reqData.router.push(`/ride-detail/${data.id}`);
+      }
     } catch (error) {
       dispatch({
         type: REQUEST_RIDE_FAILURE,
-        payload: error.message
+        payload: error.message,
       });
     }
   };
 };
 
+export const findRideById = (id) => {
+  return async (dispatch) => {
+    dispatch(findRideByIdRequest(null));
+    try {
+      const { data } = await api.get(`/rides/${+id}`);
+      dispatch(findRideByIdSuccess(data));
 
-
-export const searchRequest = () => ({
-  type: SEARCH_REQUEST,
-});
-
-export const searchSuccess = (results) => ({
-  type: SEARCH_SUCCESS,
-  payload: results,
-});
-
-export const searchFailure = (error) => ({
-  type: SEARCH_FAILURE,
-  payload: error,
-});
+      console.log("ride details - ",data)
+    } catch (error) {
+      dispatch(findRideByIdFailure(error.message));
+    }
+  };
+};
 
 export const searchLocation = (query) => {
   return async (dispatch) => {
@@ -57,7 +63,7 @@ export const searchLocation = (query) => {
 
     try {
       const response = await axios.get(url);
-      console.log("search result -- ",response.data)
+      console.log("search result -- ", response.data);
       dispatch(searchSuccess(response.data));
     } catch (error) {
       dispatch(searchFailure(error.message));

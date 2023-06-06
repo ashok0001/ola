@@ -7,6 +7,9 @@ import {
   SEARCH_SUCCESS,
   SEARCH_REQUEST,
   SEARCH_FAILURE,
+  FIND_RIDE_BY_ID_SUCCESS,
+  FIND_RIDE_BY_ID,
+  FIND_RIDE_BY_ID_FAILURE,
 } from "./ActionType";
 
 const initialState = {
@@ -60,6 +63,26 @@ const rideReducer = (state = initialState, action) => {
         results: [],
         error: action.payload,
       };
+      case FIND_RIDE_BY_ID:
+        return {
+          ...state,
+          loading: true,
+          error: null
+        };
+      case FIND_RIDE_BY_ID_SUCCESS:
+        return {
+          ...state,
+          ride: action.payload,
+          loading: false,
+          error: null
+        };
+      case FIND_RIDE_BY_ID_FAILURE:
+        return {
+          ...state,
+          ride: null,
+          loading: false,
+          error: action.payload
+        };
     default:
       return state;
   }

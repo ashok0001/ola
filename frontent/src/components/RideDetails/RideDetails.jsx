@@ -1,16 +1,24 @@
 "use client";
-import React from "react";
+import React, { useEffect } from "react";
 import WestIcon from "@mui/icons-material/West";
 import { Avatar, IconButton } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import CallIcon from "@mui/icons-material/Call";
 import KeyIcon from '@mui/icons-material/Key';
 import { useRouter } from "next/navigation";
+import { useDispatch, useSelector } from "react-redux";
+import { findRideById } from "@/Redux/Ride/Action";
 
-const RideDetails = () => {
+const RideDetails = ({rideId}) => {
   const latitude= "19.1867193"
   const longitude ="72.8485884"
+  const dispatch=useDispatch();
   const router=useRouter()
+  const {ride}=useSelector(store=>store);
+
+  useEffect(()=>{
+    dispatch(findRideById(rideId))
+  },[rideId])
 
   const goBack=()=>{
       router.back()
@@ -19,7 +27,7 @@ const RideDetails = () => {
     <div className="">
       <div className="flex items-center px-2 lg:px-5 py-2">
         <WestIcon onClick={goBack} className="cursor-pointer" />
-        <p className="text-center w-full">NCJSDNFSDB00083</p>
+        <p className="text-center w-full">{rideId}</p>
       </div>
 
       <div className="px-2 lg:px-5 py-5">
@@ -28,13 +36,13 @@ const RideDetails = () => {
             <span className="pr-5 opacity-70 text-xs font-semibold">
               PICKUP :{" "}
             </span>
-            <span>Mumbai, Mumbai Suburban, Maharashtra, India</span>
+            <span>{ride.ride?.pickupArea}</span>
           </div>
           <div className="flex items-center border-b p-3">
             <span className="pr-5 opacity-70 text-xs font-semibold">
               DROP :{" "}
             </span>
-            <span>Mumbai, Ramos Arizpe, Coahuila, 25900, Mexico</span>
+            <span>{ride.ride?.destinationArea}</span>
           </div>
         </div>
       </div>
@@ -46,7 +54,7 @@ const RideDetails = () => {
       <div className="flex items-center justify-center w-full h-[45vh] ">
         <p className="text-center">
         <iframe
-  src={ `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d0.01900000000001072!2d${longitude}!3d${latitude}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z${latitude}!5e0!3m2!1sen!2sin!4v1637309850935!5m2!1sen!2sin`}
+  src={ `https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d0.01900000000001072!2d${ride.ride?.pickupLongitude}!3d${ride.ride?.destinationLatitude}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z${latitude}!5e0!3m2!1sen!2sin!4v1637309850935!5m2!1sen!2sin`}
   width="600"
   height="300"
   style={{ border: "0" }}
@@ -83,7 +91,7 @@ const RideDetails = () => {
               />
 
               <div className="pl-4">
-                <p>Roshan</p>
+                <p>{ride.ride?.driver.name}</p>
                 <p className="text-xs flex items-center ">
                   4.7 <StarIcon className="text-yellow-500 text-sm" />
                 </p>
