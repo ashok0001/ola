@@ -1,14 +1,38 @@
 "use client";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import DriversRide from "./DriversRide";
 import RideCard from "../RidesCard/RideCard";
 import BlockIcon from "@mui/icons-material/Block";
 import { Card, CardHeader, useStepContext } from "@mui/material";
 import AllocatedRideCard from "./AllocatedRideCard";
+import { getUser } from "@/Redux/Auth/Action";
+import { useDispatch, useSelector } from "react-redux";
 
 const Dashbord = () => {
   const [isCurrentRide, setIsCurrentRide] = useState(false);
   const [isAllocated,setIsAllocated]=useState(false);
+  const {auth,driver}=useSelector(store=>store);
+  const dispatch=useDispatch();
+  const jwt = localStorage.getItem("jwt");
+
+  useEffect(()=>{
+    dispatch(getUser(jwt))
+      },[])
+
+      useEffect(() => {
+        const intervalId = setInterval(() => {
+          // dispatch(yourActionCreator());
+        
+          dispatch(getAllocatedRides(auth.user?.id))
+    
+    
+        }, 5000); 
+    
+        return () => {
+          clearInterval(intervalId);
+        };
+      }, [auth.user?.id]);
+
   return (
     <div className="">
       <DriversRide />
@@ -49,7 +73,7 @@ const Dashbord = () => {
           }}
         />
        
-        {!isAllocated && <AllocatedRideCard />}
+        {driver.allocated.map((ride)=> <AllocatedRideCard ride={ride} />)}
 
      {isAllocated &&   <div className="w-full flex flex-col items-center justify-center py-5">
           

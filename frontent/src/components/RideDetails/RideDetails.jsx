@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 import WestIcon from "@mui/icons-material/West";
-import { Avatar, IconButton } from "@mui/material";
+import { Avatar, Backdrop, CircularProgress, IconButton } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import CallIcon from "@mui/icons-material/Call";
 import KeyIcon from '@mui/icons-material/Key';
@@ -23,7 +23,25 @@ const RideDetails = ({rideId}) => {
   const goBack=()=>{
       router.back()
   }
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      // dispatch(yourActionCreator());
+    
+      dispatch(findRideById(rideId))
+
+      if(ride.ride?.status==="REQUESTED"){
+        clearInterval(intervalId);
+        console.log("interverl id ------ ")
+      }
+
+    }, 2000); 
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, []);
   return (
+    <>
     <div className="">
       <div className="flex items-center px-2 lg:px-5 py-2">
         <WestIcon onClick={goBack} className="cursor-pointer" />
@@ -115,6 +133,15 @@ const RideDetails = ({rideId}) => {
         </div>
       </div>
     </div>
+    <Backdrop
+        sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+        open={ride.ride?.status!=="REQUESTED"}
+        // onClick={handleClose}
+      >
+        <CircularProgress color="inherit" />
+      </Backdrop>
+    </>
+    
   );
 };
 

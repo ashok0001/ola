@@ -1,8 +1,18 @@
 "use client";
+import { getAllocatedRides, getDriversCurrentRide } from "@/Redux/Driver/Action";
 import { Avatar, Button } from "@mui/material";
-import React from "react";
+import React, { useEffect } from "react";
+import { useDispatch, useSelector } from "react-redux";
 
-const AllocatedRideCard = () => {
+const AllocatedRideCard = ({ride}) => {
+const {auth}=useSelector(store=>store);
+  const dispatch=useDispatch();
+
+
+
+  console.log("auth",auth.user)
+
+  
   return (
   
       
@@ -17,12 +27,10 @@ const AllocatedRideCard = () => {
             <p className="text-sm font-semibold">Today 10:08 PM</p>
             <p className="text-xs font-semibold opacity-60">cab KSLW9983</p>
             <p className="opacity-60 text-xs">
-              Malad, Daftary Road, Malad East, P/N Ward, Zone 4, Mumbai, Mumbai
-              Suburban, Maharashtra, 400097, India
+             {ride.pikcupArea}
             </p>
             <p className="opacity-60 text-xs">
-              Gokuldham, P/S Ward, Zone 4, Mumbai, Mumbai Suburban, Maharashtra,
-              400063, India
+            {ride.destinationArea}
             </p>
           </div>
         </div>

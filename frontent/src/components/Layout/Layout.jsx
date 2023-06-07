@@ -8,11 +8,11 @@ const Layout = ({children}) => {
         <Grid item xs={12} md={8} lg={5}>
           { children}
         </Grid>
-        <Grid item className="h-screen w-full border border-black" xs={0} md={4} lg={7}>
+        <Grid item className="h-screen w-full " xs={0} md={4} lg={7}>
           <img
             className="w-full h-full object-cover object-right-top"
             src={
-             "/car.jpg"
+             "https://olawebcdn.com/images/v1/bg_city.jpg" || "/car.jpg"
             }
           ></img>
         </Grid>
