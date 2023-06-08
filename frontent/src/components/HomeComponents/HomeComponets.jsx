@@ -143,7 +143,8 @@ const HomeComponets = () => {
           </div>
 
           <Button
-            sx={{ width: "100%", backgroundColor: "blue" }}
+          className=""
+            sx={{ width: "100%", backgroundColor: "blue",padding:".7rem 0rem" }}
             variant="contained"
             type="submit"
             // onClick={handleOnSubmit}

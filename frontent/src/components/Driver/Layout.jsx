@@ -21,6 +21,8 @@ import Dashbord from "./Dashbord";
 import CancelIcon from '@mui/icons-material/Cancel';
 import { useRouter } from "next/navigation";
 import LogoutIcon from '@mui/icons-material/Logout';
+import { useDispatch } from "react-redux";
+import { logout } from "@/Redux/Auth/Action";
 const menu = [
   { name: "Dashboard", path: "/driver/dashbord",icon:<DashboardIcon className="text-blue-600"></DashboardIcon> },
   { name: "Complete Rides", path: "/driver/completed-rides", icon:<CheckCircleIcon className="text-green-600"></CheckCircleIcon>},
@@ -30,7 +32,14 @@ const menu = [
 const drawerWidth = 240;
 
 const Layout = ({ Children }) => {
+
+  const dispatch=useDispatch();
   const router=useRouter()
+
+  const handleLogout=()=>{
+    dispatch(logout());
+    router.push("/")
+  }
   const drawer = (
     <Box
       sx={{
@@ -65,7 +74,7 @@ const Layout = ({ Children }) => {
         <Divider />
 
         <ListItem disablePadding>
-          <ListItemButton>
+          <ListItemButton onClick={handleLogout}>
             <ListItemIcon><LogoutIcon/></ListItemIcon>
             <ListItemText primary={"Logout"} />
           </ListItemButton>

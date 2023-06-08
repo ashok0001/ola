@@ -5,6 +5,18 @@ import {
   SEARCH_REQUEST,
   SEARCH_SUCCESS,
   SEARCH_FAILURE,
+  START_RIDE,
+  START_RIDE_FAILURE,
+  DECLINE_RIDE_FAILURE,
+  DECLINE_RIDE_SUCCESS,
+  DECLINE_RIDE,
+  ACCEPT_RIDE_FAILURE,
+  ACCEPT_RIDE_SUCCESS,
+  ACCEPT_RIDE,
+  START_RIDE_SUCCESS,
+  CURRENT_RIDE,
+  CURRENT_RIDE_SUCCESS,
+  CURRENT_RIDE_FAILURE,
 } from './ActionType';
 
 export const searchRequest = () => ({
@@ -47,3 +59,65 @@ export const searchRequest = () => ({
     };
   };
   
+
+  // Action creators for accepting a ride
+export const acceptRide = (rideId) => ({
+  type: ACCEPT_RIDE,
+  payload: { rideId }
+});
+
+export const acceptRideSuccess = (data) => ({
+  type: ACCEPT_RIDE_SUCCESS,
+  payload:data
+});
+
+export const acceptRideFailure = (error) => ({
+  type: ACCEPT_RIDE_FAILURE,
+  payload: { error }
+});
+
+// Action creators for declining a ride
+export const declineRide = (rideId) => ({
+  type: DECLINE_RIDE,
+  payload: { rideId }
+});
+
+export const declineRideSuccess = (data) => ({
+  type: DECLINE_RIDE_SUCCESS,
+  payload:data
+});
+
+export const declineRideFailure = (error) => ({
+  type: DECLINE_RIDE_FAILURE,
+  payload: { error }
+});
+
+// Action creators for starting a ride
+export const startRide = (rideId) => ({
+  type: START_RIDE,
+  payload: { rideId }
+});
+
+export const startRideSuccess = () => ({
+  type: START_RIDE_SUCCESS
+});
+
+export const startRideFailure = (error) => ({
+  type: START_RIDE_FAILURE,
+  payload: { error }
+});
+
+// current ride
+export const currentRide = () => ({
+  type: CURRENT_RIDE,
+});
+
+export const currentRideSuccess = (data) => ({
+  type: CURRENT_RIDE_SUCCESS,
+  payload:data
+});
+
+export const currentRideFailure = (error) => ({
+  type: CURRENT_RIDE_FAILURE,
+  payload: { error }
+});

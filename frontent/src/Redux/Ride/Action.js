@@ -9,6 +9,15 @@ import {
 } from "./ActionType";
 import { api } from "@/config/api";
 import {
+  acceptRide,
+  acceptRideFailure,
+  acceptRideSuccess,
+  currentRide,
+  currentRideFailure,
+  currentRideSuccess,
+  declineRide,
+  declineRideFailure,
+  declineRideSuccess,
   findRideByIdRequest,
   findRideByIdSuccess,
   searchFailure,
@@ -51,6 +60,52 @@ export const findRideById = (id) => {
       console.log("ride details - ",data)
     } catch (error) {
       dispatch(findRideByIdFailure(error.message));
+    }
+  };
+};
+
+export const acceptRideAction = (id) => {
+  return async (dispatch) => {
+    dispatch(acceptRide());
+    try {
+      const { data } = await api.put(`/rides/${+id}/accept`);
+      dispatch(acceptRideSuccess(data));
+
+      console.log("decline - ",data)
+    } catch (error) {
+      dispatch(acceptRideFailure(error.message));
+    }
+  };
+};
+
+export const declineRideAction = (id) => {
+  console.log("decline ride action")
+
+  return async (dispatch) => {
+    dispatch(declineRide());
+    try {
+      const { data } = await api.put(`/rides/${+id}/decline`);
+      dispatch(declineRideSuccess(data));
+
+      console.log("decline - ",data)
+    } catch (error) {
+      dispatch(declineRideFailure(error.message));
+    }
+  };
+};
+
+export const currentRideAction = (id) => {
+  console.log("current ride action")
+
+  return async (dispatch) => {
+    dispatch(currentRide());
+    try {
+      const { data } = await api.put(`/drivers/${+id}/current_ride`);
+      dispatch(currentRideSuccess(data));
+
+      console.log("current ride - ",data)
+    } catch (error) {
+      dispatch(currentRideFailure(error.message));
     }
   };
 };

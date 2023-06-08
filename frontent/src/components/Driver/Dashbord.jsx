@@ -7,31 +7,43 @@ import { Card, CardHeader, useStepContext } from "@mui/material";
 import AllocatedRideCard from "./AllocatedRideCard";
 import { getUser } from "@/Redux/Auth/Action";
 import { useDispatch, useSelector } from "react-redux";
+import { getAllocatedRides } from "@/Redux/Driver/Action";
+import { currentRideAction } from "../../Redux/Ride/Action";
 
 const Dashbord = () => {
   const [isCurrentRide, setIsCurrentRide] = useState(false);
-  const [isAllocated,setIsAllocated]=useState(false);
-  const {auth,driver}=useSelector(store=>store);
-  const dispatch=useDispatch();
+  const [isAllocated, setIsAllocated] = useState(false);
+  const { auth, driver } = useSelector((store) => store);
+  const dispatch = useDispatch();
   const jwt = localStorage.getItem("jwt");
 
-  useEffect(()=>{
-    dispatch(getUser(jwt))
-      },[])
+  console.log("auth ", auth, "driver ", driver);
+  useEffect(() => {
+    dispatch(getUser(jwt));
+  }, []);
 
-      useEffect(() => {
-        const intervalId = setInterval(() => {
-          // dispatch(yourActionCreator());
-        
-          dispatch(getAllocatedRides(auth.user?.id))
-    
-    
-        }, 5000); 
-    
-        return () => {
-          clearInterval(intervalId);
-        };
-      }, [auth.user?.id]);
+  useEffect(() => {
+    const intervalId = setInterval(() => {
+      // dispatch(yourActionCreator());
+      // dispatch(getAllocatedRides(auth.user?.id));
+    }, 5000);
+
+    return () => {
+      clearInterval(intervalId);
+    };
+  }, [auth.user?.id]);
+
+  useEffect(() => {
+    if (auth.user?.id) {
+      dispatch(getAllocatedRides(auth.user?.id));
+    }
+  }, [auth.user?.id]);
+
+  useEffect(() => {
+    if (auth.user?.id) {
+      dispatch(currentRideAction(auth.user?.id));
+    }
+  }, [auth.user?.id,ride.acceptingRide]);
 
   return (
     <div className="">
@@ -48,16 +60,14 @@ const Dashbord = () => {
             },
           }}
         />
-       
+
         {isCurrentRide && <RideCard />}
 
         <div className="w-full flex flex-col items-center justify-center py-5">
-          
-            <BlockIcon className="w-20 h-20" />
-            <p className="text-xl font-semibold">
-              Currently You Don't Have Any Ride
-            </p>
-         
+          <BlockIcon className="w-20 h-20" />
+          <p className="text-xl font-semibold">
+            Currently You Don't Have Any Ride
+          </p>
         </div>
       </Card>
 
@@ -72,17 +82,20 @@ const Dashbord = () => {
             },
           }}
         />
-       
-        {driver.allocated.map((ride)=> <AllocatedRideCard ride={ride} />)}
 
-     {isAllocated &&   <div className="w-full flex flex-col items-center justify-center py-5">
-          
+        {driver.allocated.length > 0 &&
+          driver.allocated?.map((ride) => (
+            <AllocatedRideCard key={ride.id} ride={ride} />
+          ))}
+
+        {isAllocated && (
+          <div className="w-full flex flex-col items-center justify-center py-5">
             <BlockIcon className="w-20 h-20" />
             <p className="text-xl font-semibold">
-            Currently, no ride has been allocated.
+              Currently, no ride has been allocated.
             </p>
-         
-        </div>}
+          </div>
+        )}
       </Card>
     </div>
   );

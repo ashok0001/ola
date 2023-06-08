@@ -1,16 +1,28 @@
 "use client";
 import { getAllocatedRides, getDriversCurrentRide } from "@/Redux/Driver/Action";
+import { acceptRideAction, declineRideAction } from "@/Redux/Ride/Action";
+import { declineRide } from "@/Redux/Ride/ActionCreator";
 import { Avatar, Button } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 
 const AllocatedRideCard = ({ride}) => {
+  
 const {auth}=useSelector(store=>store);
   const dispatch=useDispatch();
 
 
+  const handleDeclineRide=()=>{
+    console.log("decline")
+    dispatch(declineRideAction(ride.id))
+  }
 
-  console.log("auth",auth.user)
+  const handleAcceptRide=()=>{
+    console.log("accept")
+    dispatch(acceptRideAction(ride.id))
+  }
+
+
 
   
   return (
@@ -36,8 +48,8 @@ const {auth}=useSelector(store=>store);
         </div>
 
         <div className="flex flex-col justify-between pl-5">
-         <Button className="bg-green-700" variant="contained" color="success">Accept</Button>
-         <Button className="bg-red-600" variant="contained" color="error">Decline</Button>
+         <Button onClick={handleAcceptRide} className="bg-green-700" variant="contained" color="success">Accept</Button>
+         <Button onClick={handleDeclineRide} className="bg-red-600" variant="contained" color="error">Decline</Button>
       </div>
    </div>
   );
