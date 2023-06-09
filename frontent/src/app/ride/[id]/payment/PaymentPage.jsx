@@ -18,7 +18,7 @@ const PaymentPage = ({rideId}) => {
     
     
   return (
-    <div className='px-20'>
+    <div className='px-20 flex flex-col justify-center h-[99vh] border '>
         <div className='border border-slate-600 rounded-md p-5'>
             <p className='text-center text-xl font-semibold py-2'>Payment Details</p>
             
