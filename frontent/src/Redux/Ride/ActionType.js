@@ -31,7 +31,12 @@ export const START_RIDE = 'START_RIDE';
 export const START_RIDE_SUCCESS = 'START_RIDE_SUCCESS';
 export const START_RIDE_FAILURE = 'START_RIDE_FAILURE';
 
+// complete ride
+export const FINISH_RIDE_SUCCESS="COMPLETE_RIDE_SUCCESS";
+
 // current ride
 export const CURRENT_RIDE = 'CURRENT_RIDE';
 export const CURRENT_RIDE_SUCCESS = 'CURRENT_RIDE_SUCCESS';
 export const CURRENT_RIDE_FAILURE = 'CURRENT_RIDE_FAILURE';
+
+

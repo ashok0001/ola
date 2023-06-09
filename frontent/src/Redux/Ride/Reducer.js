@@ -22,6 +22,7 @@ import {
   CURRENT_RIDE,
   CURRENT_RIDE_SUCCESS,
   CURRENT_RIDE_FAILURE,
+  FINISH_RIDE_SUCCESS,
 } from "./ActionType";
 
 const initialState = {
@@ -75,50 +76,67 @@ const rideReducer = (state = initialState, action) => {
         results: [],
         error: action.payload,
       };
-      case FIND_RIDE_BY_ID:
-        return {
-          ...state,
-          loading: true,
-          error: null
-        };
-      case FIND_RIDE_BY_ID_SUCCESS:
-        return {
-          ...state,
-          ride: action.payload,
-          loading: false,
-          error: null
-        };
-      case FIND_RIDE_BY_ID_FAILURE:
-        return {
-          ...state,
-          ride: null,
-          loading: false,
-          error: action.payload
-        };
-        case ACCEPT_RIDE:
-          return { ...state, acceptingRide: true, error: null };
-        case ACCEPT_RIDE_SUCCESS:
-          return { ...state, acceptingRide: false, error: null };
-        case ACCEPT_RIDE_FAILURE:
-          return { ...state, acceptingRide: false, error: action.payload.error };
-        case DECLINE_RIDE:
-          return { ...state, decliningRide: true, error: null };
-        case DECLINE_RIDE_SUCCESS:
-          return { ...state, decliningRide: false, error: null };
-        case DECLINE_RIDE_FAILURE:
-          return { ...state, decliningRide: false, error: action.payload.error };
-        case START_RIDE:
-          return { ...state, startingRide: true, error: null };
-        case START_RIDE_SUCCESS:
-          return { ...state, startingRide: false, error: null };
-        case START_RIDE_FAILURE:
-          return { ...state, startingRide: false, error: action.payload.error };
-          case CURRENT_RIDE:
-            return { ...state, loading: true, error: null };
-          case CURRENT_RIDE_SUCCESS:
-            return { ...state, currentRide: action.payload, error: null,loading:false };
-          case CURRENT_RIDE_FAILURE:
-            return { ...state, currentRide: null, error: action.payload.error,loading:false };
+    case FIND_RIDE_BY_ID:
+      return {
+        ...state,
+        loading: true,
+        error: null,
+      };
+    case FIND_RIDE_BY_ID_SUCCESS:
+      return {
+        ...state,
+        ride: action.payload,
+        loading: false,
+        error: null,
+      };
+    case FIND_RIDE_BY_ID_FAILURE:
+      return {
+        ...state,
+        ride: null,
+        loading: false,
+        error: action.payload,
+      };
+    case ACCEPT_RIDE:
+      return { ...state, acceptingRide: true, error: null };
+    case ACCEPT_RIDE_SUCCESS:
+      return { ...state, acceptingRide: false, error: null };
+    case ACCEPT_RIDE_FAILURE:
+      return { ...state, acceptingRide: false, error: action.payload.error };
+    case DECLINE_RIDE:
+      return { ...state, decliningRide: true, error: null };
+    case DECLINE_RIDE_SUCCESS:
+      return { ...state, decliningRide: false, error: null };
+    case DECLINE_RIDE_FAILURE:
+      return { ...state, decliningRide: false, error: action.payload.error };
+    case START_RIDE:
+      return { ...state, startingRide: true, error: null };
+    case START_RIDE_SUCCESS:
+      return { ...state, startRide: action.payload, error: null };
+    case START_RIDE_FAILURE:
+      return { ...state, startingRide: false, error: action.payload.error };
+    case CURRENT_RIDE:
+      return { ...state, loading: true, error: null };
+    case CURRENT_RIDE_SUCCESS:
+      return {
+        ...state,
+        currentRide: action.payload,
+        error: null,
+        loading: false,
+      };
+    case CURRENT_RIDE_FAILURE:
+      return {
+        ...state,
+        currentRide: null,
+        error: action.payload.error,
+        loading: false,
+      };
+      case FINISH_RIDE_SUCCESS:
+      return {
+        ...state,
+        finisheRide: action.payload,
+        error: null,
+        loading: false,
+      };
     default:
       return state;
   }

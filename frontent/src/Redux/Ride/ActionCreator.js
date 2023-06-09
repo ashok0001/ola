@@ -17,6 +17,7 @@ import {
   CURRENT_RIDE,
   CURRENT_RIDE_SUCCESS,
   CURRENT_RIDE_FAILURE,
+  FINISH_RIDE_SUCCESS,
 } from './ActionType';
 
 export const searchRequest = () => ({
@@ -98,8 +99,9 @@ export const startRide = (rideId) => ({
   payload: { rideId }
 });
 
-export const startRideSuccess = () => ({
-  type: START_RIDE_SUCCESS
+export const startRideSuccess = (data) => ({
+  type: START_RIDE_SUCCESS,
+  payload:data
 });
 
 export const startRideFailure = (error) => ({
@@ -121,3 +123,7 @@ export const currentRideFailure = (error) => ({
   type: CURRENT_RIDE_FAILURE,
   payload: { error }
 });
+
+
+// COMPLETE RIDE
+export const finishRideSuccess=(data)=>({type:FINISH_RIDE_SUCCESS,payload:data})

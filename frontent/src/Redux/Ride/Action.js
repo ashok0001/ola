@@ -12,17 +12,18 @@ import {
   acceptRide,
   acceptRideFailure,
   acceptRideSuccess,
-  currentRide,
-  currentRideFailure,
-  currentRideSuccess,
   declineRide,
   declineRideFailure,
   declineRideSuccess,
   findRideByIdRequest,
   findRideByIdSuccess,
+  finishRideSuccess,
   searchFailure,
   searchRequest,
   searchSuccess,
+  startRide,
+  startRideFailure,
+  startRideSuccess,
 } from "./ActionCreator";
 
 export const requestRide = (reqData) => {
@@ -94,21 +95,54 @@ export const declineRideAction = (id) => {
   };
 };
 
-export const currentRideAction = (id) => {
-  console.log("current ride action")
+export const startRideAction = (id) => {
+  console.log("start ride action")
 
   return async (dispatch) => {
-    dispatch(currentRide());
+    dispatch(startRide());
     try {
-      const { data } = await api.put(`/drivers/${+id}/current_ride`);
-      dispatch(currentRideSuccess(data));
+      const { data } = await api.put(`/rides/${+id}/start`);
+      dispatch(startRideSuccess(data));
 
-      console.log("current ride - ",data)
+      console.log("start ride - ",data)
     } catch (error) {
-      dispatch(currentRideFailure(error.message));
+      dispatch(startRideFailure(error.message));
     }
   };
 };
+
+export const completeRideAction = (id) => {
+  console.log("complete ride action")
+
+  return async (dispatch) => {
+    // dispatch(startRide());
+    try {
+      const { data } = await api.put(`/rides/${id}/complete`);
+      dispatch(finishRideSuccess(data));
+
+      console.log("finish ride - ",data)
+    } catch (error) {
+      // dispatch(startRideFailure(error.message));
+      console.log(error.catch)
+    }
+  };
+};
+
+// export const currentRideAction = (id) => {
+//   console.log("current ride action")
+
+//   return async (dispatch) => {
+//     dispatch(currentRide());
+//     try {
+//       const { data } = await api.get(`/drivers/${+id}/current_ride`);
+//       dispatch(currentRideSuccess(data));
+
+//       console.log("current ride - ",data)
+//     } catch (error) {
+//       dispatch(currentRideFailure(error.message));
+//     }
+//   };
+// };
 
 export const searchLocation = (query) => {
   return async (dispatch) => {
