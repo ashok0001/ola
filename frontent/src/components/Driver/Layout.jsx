@@ -21,7 +21,7 @@ import Dashbord from "./Dashbord";
 import CancelIcon from '@mui/icons-material/Cancel';
 import { useRouter } from "next/navigation";
 import LogoutIcon from '@mui/icons-material/Logout';
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { logout } from "@/Redux/Auth/Action";
 const menu = [
   { name: "Dashboard", path: "/driver/dashbord",icon:<DashboardIcon className="text-blue-600"></DashboardIcon> },
@@ -32,6 +32,8 @@ const menu = [
 const drawerWidth = 240;
 
 const Layout = ({ Children }) => {
+
+
 
   const dispatch=useDispatch();
   const router=useRouter()

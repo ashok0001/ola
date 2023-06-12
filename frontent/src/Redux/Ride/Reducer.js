@@ -85,7 +85,7 @@ const rideReducer = (state = initialState, action) => {
     case FIND_RIDE_BY_ID_SUCCESS:
       return {
         ...state,
-        ride: action.payload,
+        rideDetails: action.payload,
         loading: false,
         error: null,
       };

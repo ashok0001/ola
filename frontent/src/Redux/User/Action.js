@@ -27,3 +27,31 @@ export const getCompletedRides = () => {
     }
   };
 };
+
+export const generatePaymentLink = (rideId) => {
+  return async (dispatch) => {
+    // dispatch({ type: GET_COMPLETED_RIDES_REQUEST });
+
+    try {
+      const { data } = await api.post(`/payments/${+rideId}`);
+
+      console.log("payment",data)
+
+      // dispatch({
+      //   type: GET_COMPLETED_RIDES_SUCCESS,
+      //   payload: data,
+      // });
+
+      if(data.paymentLinkUrl){
+        window.location.href=data.paymentLinkUrl;
+      }
+
+    } catch (error) {
+      // dispatch({
+      //   type: GET_COMPLETED_RIDES_FAILURE,
+      //   payload: error.message,
+      // });
+      console.log("error ",error)
+    }
+  };
+};

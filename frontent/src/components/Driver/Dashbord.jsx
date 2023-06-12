@@ -17,7 +17,7 @@ const Dashbord = () => {
   const dispatch = useDispatch();
   const jwt = localStorage.getItem("jwt");
 
-  console.log("auth ", auth, "driver ", driver);
+  // console.log("auth ", auth, "driver ", driver);
   useEffect(() => {
     dispatch(getUser(jwt));
   }, []);

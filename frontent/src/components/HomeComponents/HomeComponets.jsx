@@ -1,20 +1,22 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import Navbar from "../Navbar/Navbar";
 import {
   Box,
   Button,
+  CircularProgress,
   FormControl,
   InputBase,
   Paper,
   TextField,
   Typography,
+  Backdrop,
 } from "@mui/material";
 import AvialableCab from "./AvialableCab";
 import { useDispatch, useSelector } from "react-redux";
 import { store } from "@/Redux/Store";
-import { requestRide, searchLocation } from "@/Redux/Ride/Action";
+import { findRideById, requestRide, searchLocation } from "@/Redux/Ride/Action";
 import SearchResult from "./SearchResult";
 import { useRouter, useSearchParams } from "next/navigation";
 
@@ -56,31 +58,46 @@ const HomeComponets = () => {
 
     console.log("handle on submit ---- ");
 
-    const pickupLattitude = searchParams.get("pickup_lattitude");
+    const pickupLatitude = searchParams.get("pickup_lattitude");
     const pickupLongitude = searchParams.get("pickup_longitude");
     const destinationLatitude = searchParams.get("destination_lattitude");
     const destinationLongitude = searchParams.get("destination_longitude");
-    const pickupArea=searchParams.get("pickup_area");
-    const destinationArea=searchParams.get("destination_area");
+    const pickupArea = searchParams.get("pickup_area");
+    const destinationArea = searchParams.get("destination_area");
 
-
-    const location={
-      pickupLattitude,
+    const location = {
+      pickupLatitude,
       pickupLongitude,
       destinationLatitude,
       destinationLongitude,
       pickupArea,
-      destinationArea
-    }
+      destinationArea,
+    };
 
-    dispatch(requestRide({location,router}))
+    dispatch(requestRide({ location, router }));
 
-    
-    console.log(
-      "handle submit location - ",
-      location
-    );
+    console.log("handle submit location - ", location);
   };
+
+  useEffect(() => {
+    if (ride.ride?.id) {
+      const intervalId = setInterval(() => {
+        // dispatch(yourActionCreator());
+
+        dispatch(findRideById(ride.ride.id));
+      }, 2000);
+
+      return () => {
+        clearInterval(intervalId);
+      };
+    }
+  }, [ride.ride]);
+
+  useEffect(() => {
+    if (ride.rideDetails?.status == "ACCEPTED") {
+      router.push(`/ride-detail/${ride.rideDetails.id}`);
+    }
+  }, [ride.rideDetails]);
 
   const onFocused = (e) => {
     setActiveField(e.target.name);
@@ -113,7 +130,7 @@ const HomeComponets = () => {
                   setActiveField={setActiveField}
                   latitude_key={"pickup_lattitude"}
                   longitude_key={"pickup_longitude"}
-                  area_key={'pickup_area'}
+                  area_key={"pickup_area"}
                 />
               </div>
             )}
@@ -136,20 +153,24 @@ const HomeComponets = () => {
                     setActiveField={setActiveField}
                     latitude_key={"destination_lattitude"}
                     longitude_key={"destination_longitude"}
-                    area_key={'destination_area'}
+                    area_key={"destination_area"}
                   />
                 </div>
               )}
           </div>
 
           <Button
-          className=""
-            sx={{ width: "100%", backgroundColor: "blue",padding:".7rem 0rem" }}
+            className=""
+            sx={{
+              width: "100%",
+              backgroundColor: "blue",
+              padding: ".7rem 0rem",
+            }}
             variant="contained"
             type="submit"
             // onClick={handleOnSubmit}
           >
-            Submit
+            Find Driver
           </Button>
         </form>
       </div>
@@ -163,6 +184,16 @@ const HomeComponets = () => {
           <AvialableCab />
         </div>
       </div>
+
+     
+            <Backdrop
+            sx={{ color: '#fff', zIndex: (theme) => theme.zIndex.drawer + 1 }}
+            open={ride.rideDetails?.status==="REQUESTED"}
+            // onClick={handleClose}
+          >
+            <CircularProgress color="inherit" />
+          </Backdrop>
+      
     </div>
   );
 };

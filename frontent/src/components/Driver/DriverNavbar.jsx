@@ -18,6 +18,8 @@ import MoreIcon from '@mui/icons-material/MoreVert';
 import Avatar from '@mui/material/Avatar';
 import useMediaQuery from '@mui/material/useMediaQuery';
 import { useTheme } from '@mui/material/styles';
+import { useDispatch, useSelector } from 'react-redux';
+import { getUser } from '@/Redux/Auth/Action';
 
 const Search = styled('div')(({ theme }) => ({
   position: 'relative',
@@ -60,11 +62,12 @@ const StyledInputBase = styled(InputBase)(({ theme }) => ({
 }));
 
 export default function DriverNavbar({handleSideBarViewInMobile}) {
-  const [anchorEl, setAnchorEl] = React.useState(null);
-  const [mobileMoreAnchorEl, setMobileMoreAnchorEl] = React.useState(null);
   const theme = useTheme();
   const isLargeScreen = useMediaQuery(theme.breakpoints.up('lg'));
+  const dispatch = useDispatch();
+  const { auth, driver,ride } = useSelector((store) => store);
 
+console.log("nav driver",auth)
  
 
   return (
@@ -84,21 +87,8 @@ export default function DriverNavbar({handleSideBarViewInMobile}) {
             />
           </Search>
           <Box sx={{ flexGrow: 1 }} />
-          <Box sx={{ display: { xs: 'none', md: 'flex' } }}>
-            <IconButton size="large" aria-label="show 4 new mails" color="inherit">
-              <Badge badgeContent={4} color="error">
-                <MailIcon />
-              </Badge>
-            </IconButton>
-            <IconButton
-              size="large"
-              aria-label="show 17 new notifications"
-              color="inherit"
-            >
-              <Badge badgeContent={17} color="error">
-                <NotificationsIcon />
-              </Badge>
-            </IconButton>
+          <Box sx={{ display: { xs: 'none', md: 'flex',alignItems:'center' } }}>
+           <p> {auth.user?.name}</p>
             <IconButton
               size="large"
               edge="end"

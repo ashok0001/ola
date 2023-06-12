@@ -39,9 +39,9 @@ export const requestRide = (reqData) => {
         type: REQUEST_RIDE_SUCCESS,
         payload: data,
       });
-      if (data.id) {
-        reqData.router.push(`/ride-detail/${data.id}`);
-      }
+      // if (data.id) {
+      //   // reqData.router.push(`/ride-detail/${data.id}`);
+      // }
     } catch (error) {
       dispatch({
         type: REQUEST_RIDE_FAILURE,

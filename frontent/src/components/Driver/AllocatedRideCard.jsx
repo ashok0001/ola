@@ -21,26 +21,26 @@ const AllocatedRideCard = ({ ride, type }) => {
 
   const handleDeclineRide = () => {
     console.log("decline");
-    dispatch(declineRideAction(ride.id));
+    dispatch(declineRideAction(ride?.id));
   };
 
   const handleAcceptRide = () => {
     console.log("accept");
-    dispatch(acceptRideAction(ride.id));
+    dispatch(acceptRideAction(ride?.id));
   };
 
   const handleCompleteRide = () => {
     console.log("complete ride");
-    dispatch(completeRideAction(ride.id));
+    dispatch(completeRideAction(ride?.id));
   };
 
   const handleStartRide = () => {
-    dispatch(startRideAction(ride.id));
+    dispatch(startRideAction(ride?.id));
     console.log("start ride");
   };
 
   return (
-    <div className="flex justify-between items-center p-3">
+    <div className="flex justify-between items-center p-3 ">
       <div className="flex items-center">
         <img
           className="w-20 h-20"
@@ -50,13 +50,13 @@ const AllocatedRideCard = ({ ride, type }) => {
         <div className="ml-5 space-y-1">
           <p className="text-sm font-semibold">Today 10:08 PM</p>
           <p className="text-xs font-semibold opacity-60">cab KSLW9983</p>
-          <p className="opacity-60 text-xs">{ride.pikcupArea}</p>
-          <p className="opacity-60 text-xs">{ride.destinationArea}</p>
+          <p className="opacity-60 text-xs">{ride?.pikcupArea}</p>
+          <p className="opacity-60 text-xs">{ride?.destinationArea}</p>
         </div>
       </div>
 
       {type === "Allocated" ? (
-        <div className="flex flex-col justify-between pl-5">
+        <div className="flex flex-col justify-between pl-5 space-y-2">
           <Button
             onClick={handleAcceptRide}
             className="bg-green-700"
@@ -67,7 +67,7 @@ const AllocatedRideCard = ({ ride, type }) => {
           </Button>
           <Button
             onClick={handleDeclineRide}
-            className="bg-red-600"
+            className="bg-red-600 "
             variant="contained"
             color="error"
           >
@@ -78,7 +78,7 @@ const AllocatedRideCard = ({ ride, type }) => {
         <div>
           <VerifiedIcon className="text-green-800 text-6xl" />{" "}
         </div>
-      ) : ride.status == "STARTED" ? (
+      ) : ride?.status == "STARTED" ? (
         <div>
           <Button
             onClick={handleCompleteRide}

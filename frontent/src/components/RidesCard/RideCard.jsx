@@ -2,10 +2,12 @@
 import { Avatar, Button } from "@mui/material";
 import React from "react";
 import VerifiedIcon from "@mui/icons-material/Verified";
+import { useRouter } from "next/navigation";
 
 const RideCard = ({ ride }) => {
+  const router=useRouter();
   return (
-    <div className="flex justify-between items-center shadow-md rounded-s-sm p-3">
+    <div onClick={()=>router.push(`/ride-detail/${ride.id}`)} className="flex justify-between items-center shadow-md rounded-s-sm p-3 cursor-pointer">
       <div className="flex items-center">
         <img
           className="w-20 h-20"
