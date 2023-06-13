@@ -7,46 +7,43 @@ import { useDispatch, useSelector } from "react-redux";
 import { getUser, login } from "@/Redux/Auth/Action";
 
 const Login = () => {
-  const [signinData,setSigninData]=useState({
-    email:"",
-    password:""
-  })
-  const dispatch=useDispatch();
+  const [signinData, setSigninData] = useState({
+    email: "",
+    password: "",
+  });
+  const dispatch = useDispatch();
   const router = useRouter();
   const goBack = () => {
     router.back();
   };
   const jwt = localStorage.getItem("jwt");
   const { auth } = useSelector((store) => store);
-  
+
   const handleChange = (event) => {
     const { name, value } = event.target;
     setSigninData((preValue) => ({ ...preValue, [name]: value }));
   };
-  
-  const handleSubmit=(event)=>{
-event.preventDefault();
-console.log("signin data - - - ",signinData)
-dispatch(login(signinData))
-  }
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("signin data - - - ", signinData);
+    dispatch(login(signinData));
+  };
 
   useEffect(() => {
-    console.log("jwt --- ",jwt)
+    console.log("jwt --- ", jwt);
     if (jwt) {
       dispatch(getUser(jwt));
     }
   }, [jwt]);
 
   useEffect(() => {
-    if (auth.user?.fullName ||auth.user?.name) {
-      if(auth.user.role==="DRIVER"){
-        router.push("/driver/dashbord")
-      }
-      else router.push("/")
+    if (auth.user?.fullName || auth.user?.name) {
+      if (auth.user.role === "DRIVER") {
+        router.push("/driver/dashbord");
+      } else router.push("/");
     }
   }, [auth.user]);
-
-
 
   return (
     <div className="py-10">
@@ -83,19 +80,27 @@ dispatch(login(signinData))
         />
 
         <Button
-        sx={{padding:".9rem 0rem"}}
+          sx={{ padding: ".9rem 0rem" }}
           variant="contained"
-          className="z-10 bg-blue-700 py-4 w-full"
+          className="z-10  w-full"
           type="submit"
           color="secondary"
         >
           Login
         </Button>
       </form>
-<div className="flex w-full justify-center">
-  <p className="flex items-center mt-5 text-center">Don't Have Account Register <Button onClick={()=>router.push("register")} className="ml-5">Register</Button></p>
-</div>
-      
+      <div className="flex w-full justify-center">
+        <p className="flex items-center mt-5 text-center">
+          Don't Have Account Register ?
+          <Button
+            onClick={() => router.push("register")}
+            className="ml-5"
+            color="secondary"
+          >
+            Register
+          </Button>
+        </p>
+      </div>
     </div>
   );
 };

@@ -18,7 +18,7 @@ import CardContent from '@mui/material/CardContent'
 const salesData = [
     {
         stats: '1',
-        color: 'primary',
+        color: '#F7CD2E',
         title: 'Current',
         icon:"https://cdn.pixabay.com/photo/2017/04/06/22/11/car-2209439_640.png"
         // icon: <CellphoneLink sx={{ fontSize: '1.75rem' }} />
@@ -26,21 +26,21 @@ const salesData = [
   {
     stats: '2',
     title: 'Cancle',
-    color: 'warning',
+    color: '#D82E2F',
     icon:"https://cdn.pixabay.com/photo/2017/04/06/22/11/car-2209439_640.png"
     // icon: <TrendingUp sx={{ fontSize: '1.75rem' }} />
   },
   {
     stats: '10',
     title: 'Completed',
-    color: 'success',
+    color: '#00D84A',
     icon:"https://cdn.pixabay.com/photo/2017/04/06/22/11/car-2209439_640.png"
     // icon: <AccountOutline sx={{ fontSize: '1.75rem' }} />
   },
   
   {
     stats: '₹88k',
-    color: 'info',
+    color: '#5A20CB',
     title: 'Revenue',
     // icon: <CurrencyUsd sx={{ fontSize: '1.75rem' }} />
     icon: "https://shopwithzosh.vercel.app/images/misc/trophy.png" 
@@ -67,8 +67,8 @@ const renderStats = () => {
         <img className='h-20 w-20 rounded-md content-start mr-5 p-2' src={item.icon} alt="" />
         
         <Box sx={{ display: 'flex', flexDirection: 'column', justifyContent:"center", alignItems:'center' }}>
-          <Typography className='font-semibold' variant='h5'>{item.title}</Typography>
-          <Typography variant='h5'>{item.stats}</Typography>
+          <Typography sx={{color:item.color}} color={item.color} className='font-semibold' >{item.title}</Typography>
+          <Typography sx={{color:item.color}}>{item.stats}</Typography>
         </Box>
       </Box>
     </Grid>
@@ -80,24 +80,13 @@ const DriversRide = () => {
     <Card className='w-full'>
       <CardHeader
         title='My Rides'
-        action={
-          <IconButton size='small' aria-label='settings' className='card-more-options' sx={{ color: 'text.secondary' }}>
-            {/* <DotsVertical /> */}
-          </IconButton>
-        }
-        subheader={
-          <Typography variant='body2'>
-            <Box component='span' sx={{ fontWeight: 600, color: 'text.primary' }}>
-              {/* My Rides */}
-            </Box>{' '}
-            {/* 😎  */}
-          </Typography>
-        }
+      
         titleTypographyProps={{
           sx: {
             mb: 2.5,
             lineHeight: '2rem !important',
-            letterSpacing: '0.15px !important'
+            letterSpacing: '0.15px !important',
+            fontWeight: "bold"
           }
         }}
       />

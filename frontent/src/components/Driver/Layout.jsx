@@ -66,14 +66,14 @@ const Layout = ({ Children }) => {
               <ListItemText className="ml-5" primary={item.name} />
             </ListItemButton>
           </ListItem>
-          <Divider/>
+          <Divider sx={{borderBottom:'1px solid #758283'}}/>
           </>
         
         ))}
       </List>
 
       <List sx={{ position: "absolute", bottom: 0, width: "100%" }}>
-        <Divider />
+        <Divider sx={{borderBottom:'1px solid #758283'}}/>
 
         <ListItem disablePadding>
           <ListItemButton onClick={handleLogout}>
@@ -91,6 +91,7 @@ const Layout = ({ Children }) => {
 
       <Box className="flex">
         <Drawer
+        className="bg-[#120E43] text-white"
           variant="permanent"
           sx={{
             width: drawerWidth,
@@ -99,12 +100,15 @@ const Layout = ({ Children }) => {
               width: drawerWidth,
               boxSizing: "border-box",
             },
+         
+            
           }}
           open={true}
           // onClose={handleCloseSideBar}
         >
           {drawer}
         </Drawer>
+        <div className="border-l border-[#9d9d9d]">as</div>
         <Box
           className="py-5 px-10"
           component="main"

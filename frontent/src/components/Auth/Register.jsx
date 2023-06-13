@@ -99,18 +99,20 @@ const Register = () => {
           onChange={handleChange}
         />
         <Button
-          className="w-full py-4 bg-blue-700"
+          className="w-full"
           variant="contained"
           type="submit"
+          color="secondary"
+          sx={{padding:".9rem 0rem"}}
         >
-          Submit
+          Register
         </Button>
       </form>
 
       <div className="flex flex-col w-full items-center justify-center space-y-2">
         <p className="flex items-center mt-5 text-center">
           If you have already account ?
-          <Button onClick={() => router.push("login")} className="ml-5">
+          <Button onClick={() => router.push("login")} className="ml-5" color="secondary">
             Login
           </Button>
         </p>
@@ -119,6 +121,7 @@ const Register = () => {
           <Button
             onClick={() => router.push("/driver/register")}
             className="ml-5"
+            color="secondary"
           >
             Register
           </Button>
