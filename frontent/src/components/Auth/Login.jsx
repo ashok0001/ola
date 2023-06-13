@@ -87,8 +87,9 @@ dispatch(login(signinData))
           variant="contained"
           className="z-10 bg-blue-700 py-4 w-full"
           type="submit"
+          color="secondary"
         >
-          Submit
+          Login
         </Button>
       </form>
 <div className="flex w-full justify-center">

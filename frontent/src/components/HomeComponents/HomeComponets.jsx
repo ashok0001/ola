@@ -163,10 +163,11 @@ const HomeComponets = () => {
             className=""
             sx={{
               width: "100%",
-              backgroundColor: "blue",
+            
               padding: ".7rem 0rem",
             }}
             variant="contained"
+            color="secondary"
             type="submit"
             // onClick={handleOnSubmit}
           >
