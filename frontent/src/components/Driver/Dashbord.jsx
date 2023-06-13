@@ -24,13 +24,10 @@ const Dashbord = () => {
   const jwt = localStorage.getItem("jwt");
   const router=useRouter();
 
-  // console.log("auth ", auth, "driver ", driver);
-  useEffect(() => {
-    dispatch(getUser(jwt));
+  useEffect(()=>{
     dispatch(getDriversCompletedRide());
-  }, []);
-
-  
+    dispatch(getUser(jwt));
+  },[ride.finisheRide])
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -58,7 +55,7 @@ const Dashbord = () => {
     if (auth.user?.id) {
       dispatch(getDriversCurrentRide(auth.user?.id));
     }
-  }, [auth.user?.id, ride.acceptingRide, ride.startRide, ride.completedRide]);
+  }, [auth.user?.id, ride.acceptingRide, ride.startRide, ride.completedRide,ride.finisheRide]);
 
   return (
     <div className="">

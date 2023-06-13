@@ -43,7 +43,7 @@ const renderStats = () => {
   },
   
   {
-    stats: driver.totalRevanue ? "₹"+driver.totalRevanue : "₹0",
+    stats: "₹"+auth.user?.totalRevenue,
     color: '#5A20CB',
     title: 'Revenue',
     // icon: <CurrencyUsd sx={{ fontSize: '1.75rem' }} />

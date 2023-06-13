@@ -35,7 +35,7 @@ const RideDetails = ({ rideId }) => {
 
       dispatch(findRideById(rideId));
 
-      if (ride.rideDetails?.status === "REQUESTED") {
+      if (ride.rideDetails?.status === "COMPLETED") {
         clearInterval(intervalId);
         console.log("interverl id ------ ");
       }
