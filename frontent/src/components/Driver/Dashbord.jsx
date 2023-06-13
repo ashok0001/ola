@@ -7,8 +7,11 @@ import { Card, CardHeader, useStepContext } from "@mui/material";
 import AllocatedRideCard from "./AllocatedRideCard";
 import { getUser } from "@/Redux/Auth/Action";
 import { useDispatch, useSelector } from "react-redux";
+import { useRouter } from "next/navigation";
+
 import {
   getAllocatedRides,
+  getDriversCompletedRide,
   getDriversCurrentRide,
 } from "@/Redux/Driver/Action";
 import { currentRideAction } from "../../Redux/Ride/Action";
@@ -19,11 +22,15 @@ const Dashbord = () => {
   const { auth, driver, ride } = useSelector((store) => store);
   const dispatch = useDispatch();
   const jwt = localStorage.getItem("jwt");
+  const router=useRouter();
 
   // console.log("auth ", auth, "driver ", driver);
   useEffect(() => {
     dispatch(getUser(jwt));
+    dispatch(getDriversCompletedRide());
   }, []);
+
+  
 
   useEffect(() => {
     const intervalId = setInterval(() => {
@@ -34,6 +41,7 @@ const Dashbord = () => {
     return () => {
       clearInterval(intervalId);
     };
+   
   }, [auth.user?.id]);
 
   useEffect(() => {
@@ -43,6 +51,10 @@ const Dashbord = () => {
   }, [auth.user?.id, ride.decliningRide]);
 
   useEffect(() => {
+    if(!auth.user) {
+      // router.push("/login")
+    }
+
     if (auth.user?.id) {
       dispatch(getDriversCurrentRide(auth.user?.id));
     }

@@ -232,10 +232,11 @@ const DriverRegisterForm = () => {
 
           <Grid item xs={12}>
             <Button
-              className="w-full my-3 bg-blue-600"
+              className="w-full my-3"
               type="submit"
               variant="contained"
-              color="primary"
+              color="secondary"
+              sx={{ padding: ".9rem 0rem" }}
             >
               Register
             </Button>

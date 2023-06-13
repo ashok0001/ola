@@ -8,7 +8,7 @@ const CompletedRides = () => {
   const { driver } = useSelector((store) => store);
   const dispatch = useDispatch();
 
-  console.log("driver ", driver);
+  // console.log("driver ", driver);
 
   useEffect(() => {
     dispatch(getDriversCompletedRide());

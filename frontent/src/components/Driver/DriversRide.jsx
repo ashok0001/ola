@@ -7,6 +7,7 @@ import CardHeader from '@mui/material/CardHeader'
 import IconButton from '@mui/material/IconButton'
 import Typography from '@mui/material/Typography'
 import CardContent from '@mui/material/CardContent'
+import { useSelector } from 'react-redux'
 
 // ** Icons Imports
 // import TrendingUp from 'mdi-material-ui/TrendingUp'
@@ -15,9 +16,12 @@ import CardContent from '@mui/material/CardContent'
 // import CellphoneLink from 'mdi-material-ui/CellphoneLink'
 // import AccountOutline from 'mdi-material-ui/AccountOutline'
 
-const salesData = [
+
+const renderStats = () => {
+  const { auth, driver, ride } = useSelector((store) => store);
+  const salesData = [
     {
-        stats: '1',
+        stats: driver.currentRide?1:0,
         color: '#F7CD2E',
         title: 'Current',
         icon:"https://cdn.pixabay.com/photo/2017/04/06/22/11/car-2209439_640.png"
@@ -31,7 +35,7 @@ const salesData = [
     // icon: <TrendingUp sx={{ fontSize: '1.75rem' }} />
   },
   {
-    stats: '10',
+    stats: driver.completedRides?.length,
     title: 'Completed',
     color: '#00D84A',
     icon:"https://cdn.pixabay.com/photo/2017/04/06/22/11/car-2209439_640.png"
@@ -39,7 +43,7 @@ const salesData = [
   },
   
   {
-    stats: '₹88k',
+    stats: driver.totalRevanue ? "₹"+driver.totalRevanue : "₹0",
     color: '#5A20CB',
     title: 'Revenue',
     // icon: <CurrencyUsd sx={{ fontSize: '1.75rem' }} />
@@ -47,7 +51,7 @@ const salesData = [
   }
 ]
 
-const renderStats = () => {
+
   return salesData.map((item, index) => (
     <Grid item xs={12} sm={3} key={index}>
       <Box key={index} sx={{ display: 'flex', alignItems: 'center' }}>
