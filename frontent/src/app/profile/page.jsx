@@ -1,6 +1,6 @@
 "use client"
-import Layout from '@/components/Layout/Layout'
-import Profile from '@/components/Profile/Profile'
+import Layout from '@/components/User/Layout/Layout'
+import Profile from '@/components/User/Profile/Profile'
 import React from 'react'
 
 const page = () => {

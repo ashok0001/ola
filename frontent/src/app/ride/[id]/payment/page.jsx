@@ -1,7 +1,7 @@
 "use client"
 import React from 'react'
 import PaymentPage from './PaymentPage'
-import Layout from '@/components/Layout/Layout'
+import Layout from '@/components/User/Layout/Layout'
 
 const page = (props) => {
     console.log("ride id --- ",props.params.id)

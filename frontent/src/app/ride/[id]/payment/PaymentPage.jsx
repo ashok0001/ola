@@ -1,7 +1,7 @@
 import { findRideById } from '@/Redux/Ride/Action';
 import { generatePaymentLink } from '@/Redux/User/Action';
 import AllocatedRideCard from '@/components/Driver/AllocatedRideCard';
-import RideDetails from '@/components/RideDetails/RideDetails';
+import RideDetails from '@/components/User/RideDetails/RideDetails';
 import { convertMillisecondsToMinutesAndHours } from '@/config/methods/milisecondToTime';
 import { Button } from '@mui/material';
 import { useRouter } from 'next/navigation';

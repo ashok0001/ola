@@ -1,7 +1,7 @@
 "use client";
 import React, { useEffect, useState } from "react";
 import DriversRide from "./DriversRide";
-import RideCard from "../RidesCard/RideCard";
+import RideCard from "../User/RidesCard/RideCard";
 import BlockIcon from "@mui/icons-material/Block";
 import { Card, CardHeader, useStepContext } from "@mui/material";
 import AllocatedRideCard from "./AllocatedRideCard";

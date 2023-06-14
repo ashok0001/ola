@@ -1,6 +1,6 @@
 "use client"
 import DriverRegisterForm from '@/components/Auth/DriverRegisterFrom'
-import Layout from '@/components/Layout/Layout'
+import Layout from '@/components/User/Layout/Layout'
 import React from 'react'
 
 const page = () => {

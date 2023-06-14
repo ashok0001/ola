@@ -13,7 +13,7 @@ import {
 import React, { Children } from "react";
 
 import { MailIcon } from "@mui/icons-material";
-import Navbar from "../Navbar/Navbar";
+import Navbar from "../User/Navbar/Navbar";
 import DriverNavbar from "./DriverNavbar";
 import CheckCircleIcon from '@mui/icons-material/CheckCircle';
 import DashboardIcon from '@mui/icons-material/Dashboard';

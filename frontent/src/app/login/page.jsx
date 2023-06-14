@@ -1,7 +1,7 @@
 "use client"
 
 import Login from '@/components/Auth/Login'
-import Layout from '@/components/Layout/Layout'
+import Layout from '@/components/User/Layout/Layout'
 import React from 'react'
 
 const Page = () => {
