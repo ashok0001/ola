@@ -14,10 +14,14 @@ import { Avatar, Button } from "@mui/material";
 import React, { useEffect } from "react";
 import { useDispatch, useSelector } from "react-redux";
 import VerifiedIcon from "@mui/icons-material/Verified";
+import OTPModal from "./OtpModal";
 
 const AllocatedRideCard = ({ ride, type }) => {
-  const { auth } = useSelector((store) => store);
+  const state= useSelector((store) => store);
   const dispatch = useDispatch();
+  const [openOtpModal, setOpenOtpModal] = React.useState(false);
+  const handleOtpModalOpen = () => setOpenOtpModal(true);
+  const handleOtpModalClose = () => setOpenOtpModal(false);
 
   const handleDeclineRide = () => {
     console.log("decline");
@@ -34,13 +38,17 @@ const AllocatedRideCard = ({ ride, type }) => {
     dispatch(completeRideAction(ride?.id));
   };
 
-  const handleStartRide = () => {
-    dispatch(startRideAction(ride?.id));
-    console.log("start ride");
-  };
+  console.log("state ",state)
+
+  useEffect(()=>{
+    if(state.ride.startRide && !state.ride.startRide.error){
+      setOpenOtpModal(false)
+    }
+  },[ride])
+
 
   return (
-    <div className="flex justify-between items-center p-3 ">
+    <><div className="flex justify-between items-center p-3 ">
       <div className="flex items-center">
         <img
           className="w-20 h-20"
@@ -92,7 +100,7 @@ const AllocatedRideCard = ({ ride, type }) => {
       ) : (
         <div>
           <Button
-            onClick={handleStartRide}
+            onClick={handleOtpModalOpen}
             className="bg-green-700"
             variant="contained"
             color="success"
@@ -101,7 +109,12 @@ const AllocatedRideCard = ({ ride, type }) => {
           </Button>
         </div>
       )}
+
+  
     </div>
+        <OTPModal open={openOtpModal} handleClose={handleOtpModalClose} rideId={ride?.id}/>
+    </>
+    
   );
 };
 

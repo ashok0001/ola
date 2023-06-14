@@ -24,6 +24,9 @@ const Dashbord = () => {
   const jwt = localStorage.getItem("jwt");
   const router=useRouter();
 
+
+  console.log("ride",ride)
+
   useEffect(()=>{
     dispatch(getDriversCompletedRide());
     dispatch(getUser(jwt));

@@ -15,6 +15,7 @@ import {
   declineRide,
   declineRideFailure,
   declineRideSuccess,
+  findRideByIdFailure,
   findRideByIdRequest,
   findRideByIdSuccess,
   finishRideSuccess,
@@ -95,13 +96,13 @@ export const declineRideAction = (id) => {
   };
 };
 
-export const startRideAction = (id) => {
+export const startRideAction = (req) => {
   console.log("start ride action")
 
   return async (dispatch) => {
     dispatch(startRide());
     try {
-      const { data } = await api.put(`/rides/${+id}/start`);
+      const { data } = await api.put(`/rides/${+req.id}/start`,req.data);
       dispatch(startRideSuccess(data));
 
       console.log("start ride - ",data)

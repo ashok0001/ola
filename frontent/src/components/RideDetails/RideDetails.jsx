@@ -1,13 +1,7 @@
 "use client";
 import React, { useEffect } from "react";
 import WestIcon from "@mui/icons-material/West";
-import {
-  Avatar,
-
-  CircularProgress,
-  IconButton,
-  Button,
-} from "@mui/material";
+import { Avatar, CircularProgress, IconButton, Button } from "@mui/material";
 import StarIcon from "@mui/icons-material/Star";
 import CallIcon from "@mui/icons-material/Call";
 import KeyIcon from "@mui/icons-material/Key";
@@ -71,13 +65,15 @@ const RideDetails = ({ rideId }) => {
         </div>
 
         <p className="p-2 bg-green-400 text-white text-center">
-          {ride.rideDetails?.status=="ACCEPTED" ? "Picking arriving in 1 min":`Ride ${ride.rideDetails?.status}`}
+          {ride.rideDetails?.status == "ACCEPTED"
+            ? "Picking arriving in 1 min"
+            : `Ride ${ride.rideDetails?.status}`}
         </p>
 
-        <div className="flex items-center justify-center w-full h-[45vh] ">
+        <div className="flex items-center justify-center w-full h-[42vh] ">
           <p className="text-center">
             <iframe
-              src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d0.01900000000001072!2d${ride.rideDetails?.pickupLongitude}!3d${ride.rideDetails?.destinationLatitude}!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z${latitude}!5e0!3m2!1sen!2sin!4v1637309850935!5m2!1sen!2sin`}
+              src={`https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d0.01900000000001072!2d!3d!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x0%3A0x0!2z!5e0!3m2!1sen!2sin!4v1637309850935!5m2!1sen!2sin`}
               width="600"
               height="300"
               style={{ border: "0" }}
@@ -101,8 +97,12 @@ const RideDetails = ({ rideId }) => {
                 </div>
               </div>
               <div>
-                <p className="text-xs">{ride.rideDetails?.driver.vehicle.licensePlate}</p>
-                <p className="font-semibold">{ride.rideDetails?.driver.vehicle.licensePlate.split("-")[1]}</p>
+                <p className="text-xs">
+                  {ride.rideDetails?.driver?.vehicle.licensePlate}
+                </p>
+                <p className="font-semibold">
+                  {ride.rideDetails?.driver?.vehicle?.licensePlate.split("-")[1]}
+                </p>
               </div>
             </div>
             <div className="flex justify-between w-full p-3">
@@ -113,7 +113,7 @@ const RideDetails = ({ rideId }) => {
                 />
 
                 <div className="pl-4">
-                  <p>{ride.rideDetails?.driver.name}</p>
+                  <p>{ride.rideDetails?.driver?.name}</p>
                   <p className="text-xs flex items-center ">
                     4.7 <StarIcon className="text-yellow-500 text-sm" />
                   </p>
@@ -128,7 +128,9 @@ const RideDetails = ({ rideId }) => {
 
             {ride.rideDetails?.status === "COMPLETED" ? (
               <Button
-                onClick={() => router.push(`/ride/${ride.rideDetails?.id}/payment`)}
+                onClick={() =>
+                  router.push(`/ride/${ride.rideDetails?.id}/payment`)
+                }
                 variant="contained"
                 color="secondary"
                 sx={{
@@ -146,7 +148,7 @@ const RideDetails = ({ rideId }) => {
                   <p className="ml-4">OTP</p>
                 </div>
 
-                <p>4028</p>
+                <p>{ride.rideDetails?.otp}</p>
               </div>
             )}
           </div>
