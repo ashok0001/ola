@@ -18,7 +18,6 @@ const CompletedRides = () => {
       <div>
         {driver.completedRides?.map((item) => (
           <div className="shadow-2xl py-2 px-3 border-2 border-gray-300 rounded-md mb-3">
-            {" "}
             <AllocatedRideCard type={"Completed"} ride={item} />{" "}
           </div>
         ))}
