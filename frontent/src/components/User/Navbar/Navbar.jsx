@@ -37,7 +37,7 @@ export default function Navbar() {
 
   return (
     <Box>
-      <AppBar className="bg-white text-black" position="static">
+      <AppBar sx={{backgroundColor:'#120E43'}} className="" position="static">
         <Toolbar>
           <IconButton
             size="large"
