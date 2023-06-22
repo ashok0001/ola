@@ -36,7 +36,7 @@ export default function Navbar() {
   }, [jwt]);
 
   return (
-    <Box>
+    <Box className=''>
       <AppBar sx={{backgroundColor:'#120E43'}} className="" position="static">
         <Toolbar>
           <IconButton

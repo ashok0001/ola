@@ -1,6 +1,5 @@
 'use client'
 import React from 'react'
-import CarSection from './CarSection'
 import HomeNavbar from './HomeNavbar'
 import Banner from './Banner'
 import CarVideoSection from './CarVideoSection'
@@ -13,7 +12,6 @@ const page = () => {
         <Banner/>
         <CarVideoSection/>
         <Footer/>
-        {/* <CarSection/> */}
     </div>
   )
 }

@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation'
 import React from 'react'
 
 const page = (props) => {
-  // console.log("slug - ",id)
   const router = useRouter();
   const id  = router
   console.log("slug",props.params.id)

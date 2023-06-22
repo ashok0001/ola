@@ -3,19 +3,12 @@
 import React, { useEffect, useState } from "react";
 import Navbar from "../Navbar/Navbar";
 import {
-  Box,
   Button,
   CircularProgress,
-  FormControl,
-  InputBase,
-  Paper,
-  TextField,
-  Typography,
   Backdrop,
 } from "@mui/material";
 import AvialableCab from "./AvialableCab";
 import { useDispatch, useSelector } from "react-redux";
-import { store } from "@/Redux/Store";
 import { findRideById, requestRide, searchLocation } from "@/Redux/Ride/Action";
 import SearchResult from "./SearchResult";
 import { useRouter, useSearchParams } from "next/navigation";
@@ -30,40 +23,19 @@ const validationSchema = Yup.object().shape({
 });
 
 const HomeComponets = () => {
-  // const [pickupLocation, setPickupLocation] = useState("");
-  // const [destinationLocation, setDestinationLocation] = useState("");
+ 
   const { auth, ride } = useSelector((store) => store);
-  // const [pickupLocationResult, setPickupLocationResult] = useState(false);
-  // const [destinationLocationResult, setDestinationLocationResult] =
-  //   useState(false);
+
   const searchParams = useSearchParams();
   const [activeField, setActiveField] = useState(null);
   const router = useRouter();
 
   const dispatch = useDispatch();
 
-  // const [location, setLocation] = useState({
-  //   pickupLocation: "p",
-  //   destinationLocation: "d",
-  // });
 
-  // const handlePickupLocationChange = (event) => {
-  //   setPickupLocation(event.target.value);
-  //   dispatch(searchLocation(event.target.value));
-  // };
-
-  // const handleDestinationLocationChange = (event) => {
-  //   setDestinationLocation(event.target.value);
-  //   dispatch(searchLocation(event.target.value));
-  // };
-
-  // const handleOnChange = (e) => {
-  //   e.preventDefault();
-  //   const { name, value } = e.target;
-  // };
 
   const handleOnSubmit = (event) => {
-    // event.preventDefault();
+    
 
     console.log("handle on submit ---- ");
 
@@ -128,7 +100,7 @@ const HomeComponets = () => {
   });
 
   return (
-    <div className="w-full">
+    <div className="w-full ">
       <div>
         <Navbar />
       </div>
@@ -165,9 +137,8 @@ const HomeComponets = () => {
             {formik.touched.pickupLocation && formik.errors.pickupLocation && (
               <div className="">
                 <p className="text-xs text-red-500 px-2">
-                  {" "}
                   {formik.errors.pickupLocation}
-                </p>{" "}
+                </p>
               </div>
             )}
           </div>
@@ -221,8 +192,7 @@ const HomeComponets = () => {
             variant="contained"
             color="secondary"
             type="submit"
-            // disabled={formik.isSubmitting}
-            // disabled={Object.keys(formik.errors).length !== 0}
+     
           >
             Find Driver
           </Button>
@@ -242,7 +212,6 @@ const HomeComponets = () => {
       <Backdrop
         sx={{ color: "#fff", zIndex: (theme) => theme.zIndex.drawer + 1 }}
         open={ride.rideDetails?.status === "REQUESTED"}
-        // onClick={handleClose}
       >
         <CircularProgress color="inherit" />
       </Backdrop>

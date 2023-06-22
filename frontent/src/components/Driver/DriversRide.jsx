@@ -43,10 +43,9 @@ const renderStats = () => {
   },
   
   {
-    stats: "₹"+auth.user?.totalRevenue,
+    stats: "₹"+auth.user?.totalRevenue || "₹0",
     color: '#5A20CB',
     title: 'Revenue',
-    // icon: <CurrencyUsd sx={{ fontSize: '1.75rem' }} />
     icon: "https://shopwithzosh.vercel.app/images/misc/trophy.png" 
   }
 ]

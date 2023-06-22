@@ -108,7 +108,7 @@ const Dashbord = () => {
         />
 
         {driver.allocated.length > 0 ? (
-          driver.allocated?.map((ride) => (
+          driver?.allocated?.map((ride) => (
             <AllocatedRideCard type="Allocated" key={ride.id} ride={ride} />
           ))
         ) : (

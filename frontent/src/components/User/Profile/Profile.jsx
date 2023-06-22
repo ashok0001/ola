@@ -5,13 +5,15 @@ import WestIcon from "@mui/icons-material/West";
 import RideCard from "../RidesCard/RideCard";
 import { Avatar, Button } from "@mui/material";
 import AccountBalanceWalletIcon from "@mui/icons-material/AccountBalanceWallet";
-import ContactPhoneIcon from "@mui/icons-material/ContactPhone";
-import WifiIcon from "@mui/icons-material/Wifi";
+
+ 
 import { useRouter } from "next/navigation";
 import { getUser, logout } from "@/Redux/Auth/Action";
 import { useDispatch, useSelector } from "react-redux";
 import { deepOrange } from "@mui/material/colors";
 import { getCompletedRides } from "@/Redux/User/Action";
+import CallIcon from '@mui/icons-material/Call';
+import WifiIcon from '@mui/icons-material/Wifi';
 
 const Profile = () => {
   const router = useRouter();
@@ -61,7 +63,7 @@ const Profile = () => {
           <p className="ml-4">ola money</p>
         </div>
         <div className="flex items-center p-3 border-b">
-          <ContactPhoneIcon />
+          <CallIcon />
           <p className="ml-4">Emergency Contact</p>
         </div>
         <div className="flex items-center p-3">

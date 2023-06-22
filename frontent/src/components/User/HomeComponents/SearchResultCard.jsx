@@ -15,11 +15,7 @@ const SearchResultCard = ({ item,latitude_key ,longitude_key,setActiveField,area
 
     const handleSelect=()=>{
         console.log("handle select ----- ",router,pathname," ------- ",searchParams.toString())
-        // router.replace({
-        //     pathname: router.pathname,
-        //     query: { [latitude_key]: latitude, [longitude_key]: longitude },
-        //   });
-
+   
         const params = new URLSearchParams(searchParams);
         params.set([latitude_key], item.lat);
         params.set([longitude_key], item.lon);

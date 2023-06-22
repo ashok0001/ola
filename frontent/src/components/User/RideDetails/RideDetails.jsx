@@ -82,6 +82,7 @@ const RideDetails = ({ rideId }) => {
             ></iframe>
           </p>
         </div>
+        
         <div className="px-2 lg:px-5 mt-2">
           <div className="border rounded-md ">
             <div className="flex justify-between w-full border-b p-3">
